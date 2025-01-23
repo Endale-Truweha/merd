@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Traffic {
+  id             Int       @id @default(autoincrement()) // Primary key
+  objid          Int       // Object ID from the API
+  name           String    // Parent name
+  zone           String    // Zone information (e.g., "Captured Value")
+  tags           String    // Tags (can be a stringified array if necessary)
+  device         String    // Device information
+  dateTimeRange  String    // Date-Time range (e.g., "Start Time - End Time")
+  peakHour       String    // Peak hour (can be a string; change to DateTime if it's a full timestamp)
+  bandwidth      Int       // Bandwidth value extracted from the name
+  maxSpeed       Float     // Maximum speed
+  minSpeed       Float     // Minimum speed
+  avgSpeed       Float     // Average speed
+  maxUtilization Float     // Maximum utilization percentage
+  minUtilization Float     // Minimum utilization percentage
+  createdAt      DateTime  @default(now()) // Automatically track when the entry was created
+  updatedAt      DateTime  @updatedAt      // Automatically track when the entry was updated
+}
